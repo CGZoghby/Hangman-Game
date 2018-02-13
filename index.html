@@ -9,30 +9,37 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
-
     <!-- Custom styles -->
     <link href="assets/css/style.css" rel="stylesheet">
     <!-- Link to javascript, has been tested so I know the pathing is correct -->
     <script type="text/javascript" src="assets/javascript/game.js"></script>
 
-    <title>Bootstrap Portfolio</title>
+    <title>Hangman Game!</title>
 </head>
 
 <body>
     <div class="jumbotron">
         <div class="container">
             <p>Aighto, we are making a hangman game. First things first is break the game of hangman down into concrete steps.
-                1.) Explain rules of the game 2.) Invite user to play the game by pressing a key 3.) Display a set of blank
-                underlines that are the length of the word the user needs to guess 4.) Invite the user to press any key to
-                guess that character in the word 5a.) If successful, fill in the underlines within the word with the correct
-                character they guessed 5b.) If unsuccessful, display the incorrectly guessed character, and fill in one piece
-                of the hangman 6a.) If the user fails and the hangman is hung, refresh the game 6b.) If the user guesses
-                the word correctly, add a point to their win tracker, and refresh the game
+                <ol>
+                    <li> Explain rules of the game</li> 
+                    <li> Invite user to play the game by pressing any key</li> 
+                    <li> Display a set of blank underlines that are the length of the word the user needs to guess</li>
+                    <li> Invite the user to press any key to guess that character in the word</li> 
+                    <li> If successful, fill in the underlines within the word with the correct character they guessed, and display the guessed character </li>
+                    <li> If unsuccessful, display the incorrectly guessed character, and fill in one piece of the hangman </li>
+                    <li> If the user fails and the hangman is hung, refresh the game </li>
+                    <li> If the user guesses the word correctly, add a point to their win tracker, and refresh the game</li>
+                </ol>                
             </p>
         </div>
     </div>
     <div class="container">
-
+        <div class="row">
+            <div class="col-xs-12" id="game">
+                Welcome to Hangman! Press any key to start playing!
+            </div>
+        </div>
     </div>
 </body>
 
