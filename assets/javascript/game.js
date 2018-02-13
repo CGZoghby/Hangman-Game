@@ -6,24 +6,43 @@ var wins = 0;
 var lettersAlreadyGuessed = []; //Begin as an empty array slowly populated with each character guessed
 var guessesRemaining = 12;  //the intent is to START at 12, and decrement each time the user is incorrect
 
-// Creating a gamePlay variable, that way key presses don't reset the computer guess, and the computer guess
+// Creating a gamePlay variable, that way key presses don't reset the computer guess, and the computer guess  
 // only resets if the word is completely guessed
 var gamePlay = 0;
+
 // Ideally I can create an array that is read from a file full of words from the computer to choose from.
 var computerChoices = ["lightsaber", "astromech", "wookie", "ewok", "blaster"];
-var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-var computerEmpty = "_ ".repeat(computerGuess.length);
 
-//Define the function that will insert the characters into the correct string
-function charInsert(index, str) {
-  str.replace(str[userGuess.indexOf(computerGuess)], )
+
+function chooseWord() {
+  return computerChoices[Math.floor(Math.random() * computerChoices.length)];
 }
 
-//str.replace(regexp|substr, newSubstr|function)
-//var re = /apples/gi;
-//var str = 'Apples are round, and apples are juicy.';
-//var newstr = str.replace(re, 'oranges');
-//console.log(newstr);  // oranges are round, and oranges are juicy.
+//Define the function that will insert the characters into the correct string
+function alterAt(n, c, originalString) {
+  return originalString.substr(0, 2 * n) + c + originalString.substr(2 * n + 1, 2 * originalString.length);
+}
+
+function guessLetter(letter, shown, answer) {
+  var checkIndex = 0;
+
+  checkIndex = answer.indexOf(letter);
+  while (checkIndex >= 0) {
+    shown = alterAt(checkIndex, letter, shown);
+    checkIndex = answer.indexOf(letter, checkIndex + 1);
+  }
+  return shown;
+}
+
+function reset() {
+  computerChoice = chooseWord();
+  displayWord = "_ ".repeat(computerChoice.length);
+  lettersAlreadyGuessed = [];
+  guessesRemaining = 12;
+}
+
+var computerChoice = chooseWord();
+var displayWord = "_ ".repeat(computerChoice.length);
 
 // Tied to user keypresses, I need to display and fill in characters as things happen
 
@@ -35,22 +54,36 @@ document.onkeyup = function (event) {
 
   // Take the computer's guess and check to see if the character the user guessed belongs there
   // Something like, 
-  if (userGuess.indexOf(computerGuess) > -1) {
+  tempStr = guessLetter(userGuess, displayWord, computerChoice);
+
+  winClause = displayWord.replace(/\s/g, '');
+
+  if (tempStr !== displayWord) {
     // stuff that makes the game fill in the correct character AND 
     // add that character to the list of letters already guessed
-    computerEmpty.insert(userGuess.indexOf(computerGuess), userGuess)
-  } else if (userGuess.indexOf(lettersAlreadyGuessed) > -1) {
+    //displayWord = alterAt(computerChoice.indexOf(userGuess), userGuess, displayWord);
+    displayWord = tempStr;
+    lettersAlreadyGuessed.push(userGuess);
+
+  } else if (lettersAlreadyGuessed.indexOf(userGuess) > -1) {
     // do nothing
-  } else if (userWins) {
-    //update the wins score and automatically restart the game
+
   } else {
-    //stuff that adds the character to the list of letters already guessed AND decrements number of guesses remaining
-  };
+    lettersAlreadyGuessed.push(userGuess);
+    guessesRemaining--;
+  }
+
+  if (winClause === computerChoice) {
+    alert("You win!")
+    wins++;
+    reset()
+    //update the wins score and automatically restart the game
+  }
 
   // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
   var html =
     "<p>wins: " + wins + "</p>" +
-    "<p>" + computerEmpty + "</p>" +
+    "<p>" + displayWord + "</p>" +
     "<p>Number of Guesses Remaining: " + guessesRemaining + "</p>" +
     "<p>Letters Already Guessed: " + lettersAlreadyGuessed + "</p>";
 
