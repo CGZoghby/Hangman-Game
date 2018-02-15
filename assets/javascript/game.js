@@ -5,33 +5,39 @@
 var wins = 0;
 var lettersAlreadyGuessed = []; //Begin as an empty array slowly populated with each character guessed
 var guessesRemaining = 12;  //the intent is to START at 12, and decrement each time the user is incorrect
+var alphabetArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
 // Creating a gamePlay variable, that way key presses don't reset the computer guess, and the computer guess  
 // only resets if the word is completely guessed
 var gamePlay = 0;
 
 // Ideally I can create an array that is read from a file full of words from the computer to choose from.
-var computerChoices = ["lightsaber", "astromech", "wookie", "ewok", "blaster"];
+var computerChoices = ["lightsaber", "astromech", "wookiee", "ewok", "blaster"];
 
-
+// Made picking the word a function so all I have to do is call the function now every reset.
 function chooseWord() {
   return computerChoices[Math.floor(Math.random() * computerChoices.length)];
 }
 
 //Define the function that will insert the characters into the correct string
+//n is the index, c is the character being inserted, and originalString explains itself
+//I multiply by 2 because the displayString is "_ " so that the underscores display spaced and it looks more appealing aesthetically
 function alterAt(n, c, originalString) {
   return originalString.substr(0, 2 * n) + c + originalString.substr(2 * n + 1, 2 * originalString.length);
 }
 
-function guessLetter(letter, shown, answer) {
-  var checkIndex = 0;
+function guessLetter(letter, displayStr, answer) {
 
+  //initialize variable for holding the value from indexOf function, then fill it with answer
+  var checkIndex = 0;
   checkIndex = answer.indexOf(letter);
+
+  //if the letter is inside the passed computerChoice string, then update the displayStr, and check again in case the letter is in there twice
   while (checkIndex >= 0) {
-    shown = alterAt(checkIndex, letter, shown);
+    displayStr = alterAt(checkIndex, letter, displayStr);
     checkIndex = answer.indexOf(letter, checkIndex + 1);
   }
-  return shown;
+  return displayStr;
 }
 
 function reset() {
@@ -68,13 +74,27 @@ document.onkeyup = function (event) {
   } else if (lettersAlreadyGuessed.indexOf(userGuess) > -1) {
     // do nothing
 
-  } else {
+  } else if (alphabetArray.indexOf(userGuess) > -1) {
     lettersAlreadyGuessed.push(userGuess);
     guessesRemaining--;
   }
 
-  if (winClause === computerChoice) {
-    alert("You win!")
+  // this method of display is totallly f*cking fine. What I need is to now trigger a display/img transition matching the correctly guessed word.
+  if (displayWord.indexOf("_ ") === -1) {
+    
+    //initialize the variables that will be appended html elements
+    var imageWin = $("<img>");
+    var strWin = $("<h1>");
+    //Actually really hype this works, it jsut means all the images are ideally saved as jpegs
+    strWin.text("The word was " + computerChoice);
+    imageWin.attr("src", ("../Hangman-Game/assets/images/" + computerChoice + ".jpeg"));
+    imageWin.addClass("img img-responsive")
+    //Using jQuery here to empty the targeted containers each time and refresh them with the appropriate image/text
+    $("#displayWinStr").empty();
+    $("#results").empty();
+    $("#displayWinStr").append(strWin);
+    $("#results").append(imageWin);
+    
     wins++;
     reset()
     //update the wins score and automatically restart the game

@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles -->
@@ -18,26 +20,24 @@
 </head>
 
 <body>
-    <div class="jumbotron">
-        <div class="container">
-            <p>Aighto, we are making a hangman game. First things first is break the game of hangman down into concrete steps.
-                <ol>
-                    <li> Explain rules of the game</li> 
-                    <li> Invite user to play the game by pressing any key</li> 
-                    <li> Display a set of blank underlines that are the length of the word the user needs to guess</li>
-                    <li> Invite the user to press any key to guess that character in the word</li> 
-                    <li> If successful, fill in the underlines within the word with the correct character they guessed, and display the guessed character </li>
-                    <li> If unsuccessful, display the incorrectly guessed character, and fill in one piece of the hangman </li>
-                    <li> If the user fails and the hangman is hung, refresh the game </li>
-                    <li> If the user guesses the word correctly, add a point to their win tracker, and refresh the game</li>
-                </ol>                
-            </p>
-        </div>
-    </div>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12" id="game">
-                Welcome to Hangman! Press any key to start playing!
+            <!-- Begin sub-column that will display correctly guessed word with it's image  -->
+            <div class="col-xs-6">
+                <div class="row">
+                    <!-- Target and display correct word here -->
+                    <div class="col-xs-12" id="displayWinStr">
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Target and display word's associated image here -->
+                    <div class="col-xs-12" id="results">
+                    </div>
+                </div>
+            </div>
+            <!-- Play the game over in these columns -->
+            <div class="col-xs-6" id="game">
+                <p>Press any (non-alphabet) key to get started!</p>
             </div>
         </div>
     </div>
