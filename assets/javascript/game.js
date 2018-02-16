@@ -12,7 +12,7 @@ var alphabetArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"
 var gamePlay = 0;
 
 // Ideally I can create an array that is read from a file full of words from the computer to choose from.
-var computerChoices = ["lightsaber", "astromech", "wookiee", "ewok", "blaster"];
+var computerChoices = ["lightsaber", "astromech", "wookiee", "ewok", "blaster", "sith", "youngling", "yoda", "dagobah", "luke", "leia", "tatooine", "padme", "han", "vader", "garbage"];
 
 // Made picking the word a function so all I have to do is call the function now every reset.
 function chooseWord() {
@@ -67,7 +67,6 @@ document.onkeyup = function (event) {
   if (tempStr !== displayWord) {
     // stuff that makes the game fill in the correct character AND 
     // add that character to the list of letters already guessed
-    //displayWord = alterAt(computerChoice.indexOf(userGuess), userGuess, displayWord);
     displayWord = tempStr;
     lettersAlreadyGuessed.push(userGuess);
 
@@ -79,14 +78,19 @@ document.onkeyup = function (event) {
     guessesRemaining--;
   }
 
+  if (guessesRemaining === 0) {
+    reset();
+  }
+
   // this method of display is totallly f*cking fine. What I need is to now trigger a display/img transition matching the correctly guessed word.
   if (displayWord.indexOf("_ ") === -1) {
     
     //initialize the variables that will be appended html elements
     var imageWin = $("<img>");
-    var strWin = $("<h1>");
+    var strWin = $("<h2>");
     //Actually really hype this works, it jsut means all the images are ideally saved as jpegs
     strWin.text("The word was " + computerChoice);
+    //All images are found and saved from starwars.com/databank
     imageWin.attr("src", ("../Hangman-Game/assets/images/" + computerChoice + ".jpeg"));
     imageWin.addClass("img img-responsive")
     //Using jQuery here to empty the targeted containers each time and refresh them with the appropriate image/text
@@ -111,3 +115,10 @@ document.onkeyup = function (event) {
   document.querySelector("#game").innerHTML = html;
 
 };
+
+$(document).ready(function() {
+  setTimeout(function() { $('#start').empty() }, 37000); //I need to empty the scrolling containers so that the game will display properly centered in the screen
+  setTimeout(function() { $('#titles').empty() }, 37000);
+  setTimeout(function() { $('#logo').empty() }, 37000);
+  setTimeout(function() { $('.container').show() }, 37000);
+});

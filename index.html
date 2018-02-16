@@ -20,6 +20,38 @@
 </head>
 
 <body>
+    <!-- Background image. The serious dream is that in our version of hangman, losses result in an animated death star laser blowing up the planet -->
+    <p id="start">A long time ago in a galaxy far, far away&hellip;</p>
+
+    <h1 id="logo">STAR WARS</h1>
+
+    <div id="titles">
+        <div id="titlecontent">
+
+            <p class="center">EPISODE ??
+                <br /> A Javascript Game</p>
+
+            <p>It's a star wars themed hangman game</p>
+
+            <p>I shamelessley lifted the (pure css!) scrolling text from: 
+            </p>
+
+            <p class="center">
+                <a href="http://www.sitepoint.com/css3-starwars-scrolling-text/">sitepoint.com/
+                    <br />css3-starwars-scrolling-text/</a>
+            </p>
+
+            <p>and then figured out how to set a timer using jQuery so that the game would display after the scrolling text was finished.</p>
+
+            <p>I hope you have fun, this game was a blast to make.
+            </p>
+
+            <p>A few rules: I liberally used proper nouns (names, planets, etc.) and everything is trained to take your lowercase input. I was not brave enough to figure out making
+                a hangman game process spaces like in between a first an last name, so if the answer is a name, it is only a first name.
+            </p>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <!-- Begin sub-column that will display correctly guessed word with it's image  -->
@@ -41,6 +73,9 @@
             </div>
         </div>
     </div>
+
+    <audio src="assets\Star_Wars_original_opening_crawl_1977.mp3" id="audio" autobuffer="autobuffer" />
+
 </body>
 
 </html>
